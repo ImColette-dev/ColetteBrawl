@@ -36,7 +36,7 @@ class Server:
 
 
 		self.server.bind((self.ip, self.port))
-		_(f'Server started! Ip: {self.ip}, Port: {self.port}')
+		_(f'Colette brawl Server started! Ip: {self.ip}, Port: {self.port}')
 		while True:
 			self.server.listen()
 			client, address = self.server.accept()
