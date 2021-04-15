@@ -4,12 +4,9 @@ import time
 import os
 from threading import *
 
-from Logic.Device import Device
-from Logic.Player import Players
-from Packets.LogicMessageFactory import packets
-from Utils.Config import Config
-
-#logging.basicConfig(filename="errors.log", level=logging.INFO, filemode="w")
+from Structure.Device import Device
+from Structure.Player import Players
+from packet.PacketList import packets
 
 
 def _(*args):
@@ -29,14 +26,9 @@ class Server:
 		self.ip = ip
 
 	def start(self):
-		if not os.path.exists('./config.json'):
-			print("Creating config.json...")
-			Config.create_config(self)
-
-
 
 		self.server.bind((self.ip, self.port))
-		_(f'Colette brawl Server started! Ip: {self.ip}, Port: {self.port}')
+		_(f'Ip: {self.ip}, Port: {self.port}')
 		while True:
 			self.server.listen()
 			client, address = self.server.accept()
@@ -89,7 +81,7 @@ class ClientThread(Thread):
 						_(f'Packet not handled! Id: {packet_id}')
 
 				if time.time() - last_packet > 10:
-					print(f"[INFO] Ip: {self.address[0]} disconnected!")
+					print(f"Ip: {self.address[0]} disconnected!")
 					self.client.close()
 					break
 		except ConnectionAbortedError:
